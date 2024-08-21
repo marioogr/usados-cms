@@ -1,0 +1,71 @@
+{
+  "kind": "collectionType",
+  "collectionName": "publications",
+  "info": {
+    "singularName": "publication",
+    "pluralName": "publications",
+    "displayName": "Publicacion",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "marca": {
+      "type": "string"
+    },
+    "modelo": {
+      "type": "string"
+    },
+    "variante": {
+      "type": "string"
+    },
+    "motor": {
+      "type": "string"
+    },
+    "combustible": {
+      "type": "string"
+    },
+    "fotos": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "estado": {
+      "type": "enumeration",
+      "enum": [
+        "reservado",
+        "vendido",
+        "retirado",
+        "publicado"
+      ],
+      "default": "publicado"
+    },
+    "descripcion": {
+      "type": "richtext"
+    },
+    "test": {
+      "type": "blocks"
+    },
+    "anio": {
+      "type": "integer"
+    },
+    "transmision": {
+      "type": "enumeration",
+      "enum": [
+        "Automatica",
+        "Manual"
+      ]
+    },
+    "precio": {
+      "type": "biginteger"
+    }
+  }
+}
