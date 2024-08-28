@@ -51,9 +51,6 @@
     "descripcion": {
       "type": "richtext"
     },
-    "test": {
-      "type": "blocks"
-    },
     "anio": {
       "type": "integer"
     },
