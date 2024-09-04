@@ -1,25 +1,19 @@
-FROM node:18 as build
-WORKDIR /usr/src/app
+FROM node:18-alpine
+# Installing libvips-dev for sharp Compatibility
+RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev git
+ARG NODE_ENV=development
+ENV NODE_ENV=${NODE_ENV}
 
-COPY package.json  .
-COPY yarn.lock .
-COPY .env .
+WORKDIR /opt/
+COPY package.json package-lock.json ./
+RUN npm install -g node-gyp
+RUN npm config set fetch-retry-maxtimeout 600000 -g && npm install
+ENV PATH /opt/node_modules/.bin:$PATH
 
-ENV NODE_ENV production
-
-RUN yarn install --production --quiet --frozen-lockfile
+WORKDIR /opt/app
 COPY . .
-
-#needed for files and folder creation by Cloud Run
-RUN chmod 777 /usr/src/app/node_modules
-RUN chmod 777 /usr/src/app/public/uploads
-
-RUN yarn build
-
+RUN chown -R node:node /opt/app
+USER node
+RUN ["npm", "run", "build"]
 EXPOSE 1337
-EXPOSE 5432
-
-#changing user
-USER 1000
-
-CMD ["yarn","develop"]
+CMD ["npm", "run", "develop"]
